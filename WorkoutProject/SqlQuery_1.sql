@@ -2,7 +2,7 @@
 use Project
 
 drop table Workout_Category
-
+--this is comment
 create table WorkOut_Category
 (
 category_id int,
