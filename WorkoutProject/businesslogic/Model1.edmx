@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ProjectsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="WorkOut_Actives">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="workout_id" Type="int" />
+          <Property Name="start_time" Type="time" Precision="7" />
+          <Property Name="start_date" Type="date" />
+          <Property Name="end_date" Type="date" />
+          <Property Name="end_time" Type="time" Precision="7" />
+          <Property Name="comment" Type="varchar" MaxLength="64" />
+          <Property Name="status" Type="bit" />
+        </EntityType>
+        <EntityType Name="WorkOut_Categorys">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="int" Nullable="false" />
+          <Property Name="category_name" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="WorkOut_Collections">
+          <Key>
+            <PropertyRef Name="workout_id" />
+          </Key>
+          <Property Name="workout_title" Type="varchar" MaxLength="128" />
+          <Property Name="workout_note" Type="varchar" MaxLength="256" />
+          <Property Name="calories_burn_per_min" Type="float" />
+          <Property Name="category_id" Type="int" />
+          <Property Name="workout_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_WorkOut_Actives_WorkOut_Collections">
+          <End Role="WorkOut_Collections" Type="Self.WorkOut_Collections" Multiplicity="0..1" />
+          <End Role="WorkOut_Actives" Type="Self.WorkOut_Actives" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkOut_Collections">
+              <PropertyRef Name="workout_id" />
+            </Principal>
+            <Dependent Role="WorkOut_Actives">
+              <PropertyRef Name="workout_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_WorkOut_Collections_WorkOut_Categorys">
+          <End Role="WorkOut_Categorys" Type="Self.WorkOut_Categorys" Multiplicity="0..1" />
+          <End Role="WorkOut_Collections" Type="Self.WorkOut_Collections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkOut_Categorys">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="WorkOut_Collections">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjectsModelStoreContainer">
+          <EntitySet Name="WorkOut_Actives" EntityType="Self.WorkOut_Actives" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkOut_Categorys" EntityType="Self.WorkOut_Categorys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkOut_Collections" EntityType="Self.WorkOut_Collections" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_WorkOut_Actives_WorkOut_Collections" Association="Self.fk_WorkOut_Actives_WorkOut_Collections">
+            <End Role="WorkOut_Collections" EntitySet="WorkOut_Collections" />
+            <End Role="WorkOut_Actives" EntitySet="WorkOut_Actives" />
+          </AssociationSet>
+          <AssociationSet Name="fk_WorkOut_Collections_WorkOut_Categorys" Association="Self.fk_WorkOut_Collections_WorkOut_Categorys">
+            <End Role="WorkOut_Categorys" EntitySet="WorkOut_Categorys" />
+            <End Role="WorkOut_Collections" EntitySet="WorkOut_Collections" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProjectsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="WorkOut_Actives">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="workout_id" Type="Int32" />
+          <Property Name="start_time" Type="Time" Precision="7" />
+          <Property Name="start_date" Type="DateTime" Precision="0" />
+          <Property Name="end_date" Type="DateTime" Precision="0" />
+          <Property Name="end_time" Type="Time" Precision="7" />
+          <Property Name="comment" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Boolean" />
+          <NavigationProperty Name="WorkOut_Collections" Relationship="Self.fk_WorkOut_Actives_WorkOut_Collections" FromRole="WorkOut_Actives" ToRole="WorkOut_Collections" />
+        </EntityType>
+        <EntityType Name="WorkOut_Categorys">
+          <Key>
+            <PropertyRef Name="category_id" />
+          </Key>
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+          <Property Name="category_name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="WorkOut_Collections" Relationship="Self.fk_WorkOut_Collections_WorkOut_Categorys" FromRole="WorkOut_Categorys" ToRole="WorkOut_Collections" />
+        </EntityType>
+        <EntityType Name="WorkOut_Collections">
+          <Key>
+            <PropertyRef Name="workout_id" />
+          </Key>
+          <Property Name="workout_title" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="workout_note" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="calories_burn_per_min" Type="Double" />
+          <Property Name="category_id" Type="Int32" />
+          <Property Name="workout_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="WorkOut_Actives" Relationship="Self.fk_WorkOut_Actives_WorkOut_Collections" FromRole="WorkOut_Collections" ToRole="WorkOut_Actives" />
+          <NavigationProperty Name="WorkOut_Categorys" Relationship="Self.fk_WorkOut_Collections_WorkOut_Categorys" FromRole="WorkOut_Collections" ToRole="WorkOut_Categorys" />
+        </EntityType>
+        <Association Name="fk_WorkOut_Actives_WorkOut_Collections">
+          <End Role="WorkOut_Collections" Type="Self.WorkOut_Collections" Multiplicity="0..1" />
+          <End Role="WorkOut_Actives" Type="Self.WorkOut_Actives" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkOut_Collections">
+              <PropertyRef Name="workout_id" />
+            </Principal>
+            <Dependent Role="WorkOut_Actives">
+              <PropertyRef Name="workout_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_WorkOut_Collections_WorkOut_Categorys">
+          <End Role="WorkOut_Categorys" Type="Self.WorkOut_Categorys" Multiplicity="0..1" />
+          <End Role="WorkOut_Collections" Type="Self.WorkOut_Collections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkOut_Categorys">
+              <PropertyRef Name="category_id" />
+            </Principal>
+            <Dependent Role="WorkOut_Collections">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjectsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="WorkOut_Actives" EntityType="Self.WorkOut_Actives" />
+          <EntitySet Name="WorkOut_Categorys" EntityType="Self.WorkOut_Categorys" />
+          <EntitySet Name="WorkOut_Collections" EntityType="Self.WorkOut_Collections" />
+          <AssociationSet Name="fk_WorkOut_Actives_WorkOut_Collections" Association="Self.fk_WorkOut_Actives_WorkOut_Collections">
+            <End Role="WorkOut_Collections" EntitySet="WorkOut_Collections" />
+            <End Role="WorkOut_Actives" EntitySet="WorkOut_Actives" />
+          </AssociationSet>
+          <AssociationSet Name="fk_WorkOut_Collections_WorkOut_Categorys" Association="Self.fk_WorkOut_Collections_WorkOut_Categorys">
+            <End Role="WorkOut_Categorys" EntitySet="WorkOut_Categorys" />
+            <End Role="WorkOut_Collections" EntitySet="WorkOut_Collections" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjectsModelStoreContainer" CdmEntityContainer="ProjectsEntities">
+          <EntitySetMapping Name="WorkOut_Actives">
+            <EntityTypeMapping TypeName="ProjectsModel.WorkOut_Actives">
+              <MappingFragment StoreEntitySet="WorkOut_Actives">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="workout_id" ColumnName="workout_id" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkOut_Categorys">
+            <EntityTypeMapping TypeName="ProjectsModel.WorkOut_Categorys">
+              <MappingFragment StoreEntitySet="WorkOut_Categorys">
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="category_name" ColumnName="category_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkOut_Collections">
+            <EntityTypeMapping TypeName="ProjectsModel.WorkOut_Collections">
+              <MappingFragment StoreEntitySet="WorkOut_Collections">
+                <ScalarProperty Name="workout_title" ColumnName="workout_title" />
+                <ScalarProperty Name="workout_note" ColumnName="workout_note" />
+                <ScalarProperty Name="calories_burn_per_min" ColumnName="calories_burn_per_min" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="workout_id" ColumnName="workout_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
