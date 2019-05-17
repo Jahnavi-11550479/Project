@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BussinessLogic", "businessl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BussinessLogic.Test", "BussinessLogic.Test\BussinessLogic.Test.csproj", "{DED89B25-30C2-4DB0-B71C-E839A2862609}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServices", "WebApi\WebServices.csproj", "{61635A70-DAFC-4121-AB05-F2CA210BFEA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{DED89B25-30C2-4DB0-B71C-E839A2862609}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DED89B25-30C2-4DB0-B71C-E839A2862609}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DED89B25-30C2-4DB0-B71C-E839A2862609}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61635A70-DAFC-4121-AB05-F2CA210BFEA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61635A70-DAFC-4121-AB05-F2CA210BFEA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61635A70-DAFC-4121-AB05-F2CA210BFEA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61635A70-DAFC-4121-AB05-F2CA210BFEA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
