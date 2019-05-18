@@ -8,5 +8,6 @@ namespace WorkRepository
 {
     public class Class1
     {
+
     }
 }
